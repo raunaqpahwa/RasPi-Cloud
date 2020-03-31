@@ -1,0 +1,21 @@
+.homePageDiv {
+    display: flex;
+    flex-direction: row;
+    background-image: linear-gradient(19deg, #FAACA8 0%, #DDD6F3 100%);
+    justify-content: space-around;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+@media screen and (max-width: 600px) {
+    .homePageDiv {
+        display: flex;
+        flex-direction: column-reverse;
+        background-image: linear-gradient(19deg, #FAACA8 0%, #DDD6F3 100%);
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+        height: auto;
+    }
+}

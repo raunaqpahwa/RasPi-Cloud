@@ -1,0 +1,43 @@
+.item {
+    border: 2px solid #F8AEAC;
+    padding: 5px;
+    border-radius: 10px;
+    display: flex;
+    margin-bottom: 4px;
+    margin-right: 10px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.removeButtonStyle {
+    background-color: transparent;
+    font-weight: 900;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.5s linear;
+    border: none;
+}
+
+.removeButtonStyle:focus {
+    background-color: transparent;
+    font-weight: 900;
+    outline: none;
+    cursor: pointer;
+    border: none;
+}
+
+.removeButtonStyle:active {
+    background: radial-gradient(#333, transparent);
+    transform: scale(0);
+    font-weight: 900;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+
+.anchor {
+    text-decoration: none;
+    color: #000;
+
+}

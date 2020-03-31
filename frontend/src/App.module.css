@@ -1,0 +1,22 @@
+.appDiv {
+    width: 100vw;
+    height: 100vh;
+    background-color: #FAACA8;
+    background-image: linear-gradient(19deg, #FAACA8 0%, #DDD6F3 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+@media screen and (max-width: 600px) {
+    .appDiv {
+        display: flex;
+        background-image: linear-gradient(19deg, #FAACA8 0%, #DDD6F3 100%);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+        height: 100vh;
+    }
+}

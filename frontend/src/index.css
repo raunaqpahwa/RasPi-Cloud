@@ -1,0 +1,20 @@
+@font-face {
+  font-family: 'Sen Regular';
+  src: url('./fonts/Sen-Regular.ttf')
+}
+
+@font-face {
+  font-family: 'Sen Bold';
+  src: url('./fonts/Sen-Bold.ttf');
+}
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Sen Regular;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+}

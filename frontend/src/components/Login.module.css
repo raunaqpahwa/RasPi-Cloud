@@ -1,0 +1,55 @@
+.title {
+    margin-bottom: 2rem;
+    font-size: 2rem;
+}
+
+.logoImage {
+    width: 5em;
+    height: 5em;
+    margin-bottom: 1rem;
+}
+
+.loginDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.loginInputText {
+    margin: 1rem;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 0.6rem;
+    display: block;
+}
+
+.loginInputText:focus {
+    margin: 1rem;
+    outline: none;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 0.6rem;
+    display: block;
+}
+
+.loginInputSubmit {
+    margin: 2rem auto;
+    cursor: pointer;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 0.5rem;
+    display: block;
+    box-shadow: 4px 4px 5px gray;
+}
+
+.loginInputSubmit:focus {
+    background-color: lightgray;
+    margin: 2rem auto;
+    cursor: pointer;
+    outline: none;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 0.5rem;
+    display: block;
+}

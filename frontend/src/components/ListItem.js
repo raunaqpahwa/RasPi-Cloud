@@ -3,7 +3,13 @@ import listItemStyles from "./ListItem.module.css";
 function ListItem({ name, size, removeFile }) {
   return (
     <div className={listItemStyles.item}>
-      <a className={listItemStyles.anchor} href={`/storage/${name}`} download>
+      <a
+        className={listItemStyles.anchor}
+        rel="noopener noreferrer"
+        target="_blank"
+        href={`/download/${name}`}
+        download
+      >
         {name} | {(size / 1000000).toFixed(2)} MB
       </a>
 

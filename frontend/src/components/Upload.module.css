@@ -23,7 +23,7 @@
 }
 
 .hideInput {
-    display: none;
+    opacity: 0;
 }
 
 .selectButton {

@@ -1,6 +1,7 @@
 const express = require('express')
 const multer = require('multer')
 const fs = require('fs')
+const path = require('path')
 const cors = require('cors')
 const app = express()
 const storageDirectory = './storage/'
@@ -8,6 +9,9 @@ const fileIndex = './file-index.json'
 const usersFile = './users.json'
 app.use(express.json())
 app.use(cors())
+
+app.use(express.static((path.join(__dirname, 'frontend/build'))))
+app.use(express.static(path.resolve(storageDirectory)))
 
 const storage = multer.diskStorage({
     destination(request, file, callback) {
@@ -31,7 +35,7 @@ const upload = multer({
 
 
 app.get('/', (request, response) => {
-    response.sendFile(`${__dirname}/frontend/public/index.html`)
+    response.sendFile(`${__dirname}/frontend/build/index.html`)
 })
 
 
@@ -47,8 +51,13 @@ app.get('/list', (request, response) => {
 })
 
 
-
-
+app.get('/download/:name(*)', (request, response) => {
+    const fileName = request.params.name
+    console.log(fileName)
+    const fileLocation = `${__dirname}/${storageDirectory}${fileName}`
+    console.log(fileLocation)
+    response.download(fileLocation)
+})
 
 app.post('/remove-file', (request, response) => {
     const {

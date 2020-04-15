@@ -1,0 +1,45 @@
+.modalContainer {
+    z-index: 2;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #fff;
+    border: 2px solid #FAACA8;
+    box-shadow: 4px 4px 5px gray;
+    width: 40%;
+    height: 20%;
+}
+
+.modalParagraph {
+    font-weight: bold;
+}
+
+.modalButton {
+    cursor: pointer;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 0.5rem;
+    display: block;
+    box-shadow: 4px 4px 5px gray;
+}
+
+@media screen and (max-width: 600px) {
+    .modalContainer {
+        z-index: 2;
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 10px;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 4px 4px 5px gray;
+        width: 80%;
+        height: 20%;
+    }
+}

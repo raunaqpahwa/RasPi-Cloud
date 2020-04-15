@@ -6,6 +6,7 @@ const cors = require('cors')
 const app = express()
 const storageDirectory = './storage/'
 const fileIndex = './file-index.json'
+const nodeDiskInfo = require('node-disk-info');
 const usersFile = './users.json'
 app.use(express.json())
 app.use(cors())
@@ -50,6 +51,30 @@ app.get('/list', (request, response) => {
     response.send(myFiles)
 })
 
+app.get('/free-space', (request, response) => {
+    nodeDiskInfo.getDiskInfo()
+        .then(disks => {
+            let available = 0,
+                used = 0,
+                total = 0;
+            for (let disk of disks) {
+                available += disk.available
+                used += disk.used
+                total += disk.blocks
+            }
+            response.status(200).send({
+                available,
+                used,
+                total
+            })
+        })
+        .catch(error => {
+            response.status(500).send({
+                error
+            })
+        });
+})
+
 
 app.get('/download/:name(*)', (request, response) => {
     const fileName = request.params.name
@@ -71,10 +96,7 @@ app.post('/remove-file', (request, response) => {
                 err: 'Error deleting file'
             })
         } else {
-            fs.unlink(`${__dirname}/storage/${filename}`, err => {
-                console.log(err)
-                return;
-            })
+            fs.unlink(`${__dirname}/storage/${filename}`, err => console.log(err))
             let existingFiles = JSON.parse(content).files;
             existingFiles = existingFiles.filter(file => file.filename !== filename && file.size !== size)
             const allFiles = `{"files": ${JSON.stringify(existingFiles)}}`
@@ -109,6 +131,32 @@ app.post('/authenticate', (request, response) => {
     })
 })
 
+app.post('/create-user', (request, response) => {
+    const {
+        adminUsername,
+        adminPassword,
+        userUsername,
+        userPassword
+    } = request.body;
+    let userCreated = true
+    const adminDetails = JSON.parse(fs.readFileSync(usersFile, 'utf-8')).admin
+    if (adminDetails.username === adminUsername && adminDetails.password === adminPassword) {
+        const userContent = JSON.parse(fs.readFileSync(usersFile, 'utf-8'))
+        userContent.users.push({
+            username: userUsername,
+            password: userPassword
+        });
+        fs.writeFileSync(usersFile, JSON.stringify(userContent), 'utf-8', err => {
+            userCreated = false;
+            return;
+        })
+    } else {
+        userCreated = false;
+    }
+    response.status(200).send({
+        userCreated
+    })
+})
 
 app.post('/upload-files', upload.array('files', 10), (request, response) => {
     fs.readFile(fileIndex, 'utf-8', (error, content) => {

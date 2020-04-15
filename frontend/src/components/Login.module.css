@@ -43,6 +43,15 @@
     box-shadow: 4px 4px 5px gray;
 }
 
+.loginInputButton {
+    cursor: pointer;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 0.5rem;
+    display: block;
+    box-shadow: 4px 4px 5px gray;
+}
+
 .loginInputSubmit:focus {
     background-color: lightgray;
     margin: 2rem auto;

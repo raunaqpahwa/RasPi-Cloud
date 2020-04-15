@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import ListItemUpload from "./ListItemUpload.js";
 import axios from "axios";
+import { ModalContext } from "./ModalContext";
 import uploadStyles from "./Upload.module.css";
 import download from "../assets/upload.png";
-function Upload() {
+function Upload(props) {
   const [fileList, setFileList] = useState([]);
   const [percent, setPercent] = useState(0);
   const [isUploading, setIsUploading] = useState(false);
-
+  const modalContext = useContext(ModalContext);
   function onChange(e) {
     const newFileList = [...e.target.files, ...fileList];
     setFileList(newFileList);
@@ -22,23 +23,26 @@ function Upload() {
     }
     const options = {
       headers: {
-        "Content-Type": "multipart/form-data"
+        "Content-Type": "multipart/form-data",
       },
-      onUploadProgress: progressEvent => {
+      onUploadProgress: (progressEvent) => {
         const { loaded, total } = progressEvent;
         let percentComplete = parseInt((loaded * 100) / total);
         setPercent(percentComplete);
-      }
+      },
     };
 
     axios
       .post("/upload-files", formData, options)
-      .then(res => {
+      .then((res) => {
         setFileList([]);
         setIsUploading(false);
+        modalContext.changeText("File upload successful");
+        modalContext.openModal();
         setPercent(0);
+        props.handleSpaceChange();
       })
-      .catch(err => {
+      .catch((err) => {
         setIsUploading(false);
         setPercent(0);
         console.log(err);
@@ -47,7 +51,7 @@ function Upload() {
 
   function removeItem(file) {
     const newFiles = fileList.filter(
-      existingFile => existingFile.name !== file
+      (existingFile) => existingFile.name !== file
     );
     setFileList(newFiles);
   }

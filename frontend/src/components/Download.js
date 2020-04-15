@@ -1,25 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import download from "../assets/download.png";
 import ListItem from "./ListItem";
+import { ModalContext } from "./ModalContext";
 import downloadStyles from "./Download.module.css";
-function Download() {
+function Download(props) {
   const [files, setFiles] = useState([]);
-
+  const modalContext = useContext(ModalContext);
   useEffect(() => {
     axios
       .get("/list")
-      .then(newFiles => {
+      .then((newFiles) => {
         setFiles(newFiles.data);
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
     const intervalId = setInterval(() => {
       axios
         .get("/list")
-        .then(newFiles => {
+        .then((newFiles) => {
           setFiles(newFiles.data);
         })
-        .catch(err => console.log(err));
+        .catch((err) => console.log(err));
     }, 5000);
     return () => {
       clearInterval(intervalId);
@@ -28,15 +29,18 @@ function Download() {
 
   function removeFile(removedFile) {
     const newFiles = files.filter(
-      file =>
+      (file) =>
         file.filename !== removedFile.filename && file.size !== removedFile.size
     );
     axios
       .post("/remove-file", removedFile)
       .then(() => {
         setFiles(newFiles);
+        modalContext.changeText("Successfully deleted file");
+        modalContext.openModal();
+        props.handleSpaceChange();
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   }
 
   return (
